@@ -1,0 +1,25 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (@User.Identity.IsAuthenticated)
+    {
+        @if (@User.FindFirstValue(ClaimTypes.Role) == "User")
+        {
+            <h2>Hello @User.FindFirstValue(ClaimTypes.Name)</h2>
+        }
+        else
+        {
+            <h2>Hello Admin</h2>
+        }
+    }
+    else
+    {
+        <h1 class="display-4">Welcome Folks!!</h1>
+    }
+    <p>You can manage your To Do tasks in out place.</p>
+    
+    <a asp-controller="Goals" asp-action="Index">Let's create Plan</a>
+</div>

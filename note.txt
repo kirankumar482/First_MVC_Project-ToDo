@@ -1,0 +1,50 @@
+﻿Steps Involved:
+
+- How to create model with data validation (Data Annotations, Fluent API)??
+
+- EF Code First Approach
+
+- How to create Controller & Views for Model??
+
+- How to design the View??
+
+- How to populate data between Controllers and Views?? [Model, ViewData, ViewBag]
+
+- How to navigate between different Views?? (Redirect)
+
+- Creating Register & Login seperately to access by all
+
+- Cookie based Auth 
+1. Add Authentication Schema for the app and configure it with options
+2. Add service AddHttpContextAccessor
+
+
+
+To do:
+- know how storing cookies (key,value)
+- Role based (admin, user)
+
+Refactor 
+- Project structure for a project to provide security based on entity
+- Db concurrency updations
+- Store credintials in Catch (Explore)
+
+-- error prone checks [Errors]
+
+Logout button click not calling action?? 405 Error - Method Not Allowed
+Sol: write it in a form with post 
+
+View("action","data") vs RedirectToAction("action","controller")
+
+How can I access signed user data?? Make an endpoint so that signed user only access his tasks?? 
+Sol: No, the entire user object is not stored.
+Only the claims you explicitly added are stored in the authentication cookie.
+
+If we don't pass data to the Views,
+NullReferenceException
+InvalidOperationException
+
+Disabled fields aren't submitted: 
+Sol: When an input field is disabled (<input disabled ... />), its value is not sent with the form submission.
+
+

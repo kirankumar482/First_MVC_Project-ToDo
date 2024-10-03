@@ -1,0 +1,18 @@
+﻿1: Nullable for setting null and required is for set the value to validate success...
+
+[Required]
+public DateTime? OrderDate { get; set; }
+
+Nullable: makes sure, that we do not see "0" for integer and some "dafault" date when the entry form is loaded.
+And [Required] make sure, that value is always entered from the user.
+Then model validate will be performed efficiently without any defaults....
+
+https://stackoverflow.com/questions/43688968/what-does-it-mean-for-a-property-to-be-required-and-nullable#:~:text=so%2C%20Nullable%3A%20makes%20sure%2C,saw%20when%20form%20got%20loaded).
+
+2. Bind[attributes] User user vs User user
+
+The Model validation considering the data coming from client to server then only we will interact with DB.
+Bind[attributes] User user : Validates only specified attributes in that model
+User user : Validates all attributes in that model
+
+3. 

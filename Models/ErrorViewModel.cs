@@ -6,6 +6,6 @@ namespace First_MVC_Project.Models
 
         public string? Message { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(Error) && string.IsNullOrEmpty(Message);
+        public bool ShowRequestId => !(string.IsNullOrEmpty(Error) && string.IsNullOrEmpty(Message));
     }
 }

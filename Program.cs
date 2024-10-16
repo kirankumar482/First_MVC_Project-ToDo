@@ -69,3 +69,20 @@ namespace First_MVC_Project
         }
     }
 }
+
+// Flow of Middleware components example... (Use, Run, Map)
+//app.Use(async (context, next) => {
+//    await context.Response.WriteAsync("Middleware1: Request\n");
+//    await next();
+//    await context.Response.WriteAsync("Middleware1: Response\n");
+//});
+
+//app.Use(async (context, next) => {
+//    await context.Response.WriteAsync("Middleware2: Request\n");
+//    await next();
+//    await context.Response.WriteAsync("Middleware2: Response\n");
+//});
+
+//app.Run(async context => {
+//    await context.Response.WriteAsync("Middleware3: Terminal Request\n");
+//});

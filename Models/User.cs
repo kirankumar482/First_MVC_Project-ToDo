@@ -19,5 +19,7 @@ namespace First_MVC_Project.Models
         [ValidateNever]
         public ICollection<Goal> Tasks { get; set; } = new List<Goal>();
 
+        [Required]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

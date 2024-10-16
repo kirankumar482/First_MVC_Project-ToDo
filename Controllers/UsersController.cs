@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Azure.Core;
 using First_MVC_Project.Models;
+using First_MVC_Project.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,34 @@ namespace First_MVC_Project.Controllers
             return View(users);
         }
 
+        [Authorize(Roles = "Admin")]
+        //[Route("Users/Dashboard/{year:int?}")]
+        public async Task<IActionResult> Dashboard(int? year)
+        {
+            int CountOfUsersCreated;
+            int CountOfTasksCreated;
+            if (!year.HasValue)
+            {
+                var tasks = await _context.Tasks.ToListAsync();
+                var users = await _context.Users.ToListAsync();
+                CountOfTasksCreated = tasks.Count;
+                CountOfUsersCreated = users.Count;
+            }
+            else
+            {
+                var users = await _context.Users.Where(user => user.CreatedDate.Year.Equals(year)).ToListAsync();
+                var tasks = await _context.Tasks.Where(task => task.CreatedDate.Year.Equals(year)).ToListAsync();
+                CountOfTasksCreated = tasks.Count;
+                CountOfUsersCreated = users.Count;
+            }
+
+            return View(new UserTaskViewModel
+            {
+                UsersCount = CountOfUsersCreated,
+                TasksCount = CountOfTasksCreated
+            });
+        }
+
         //[Route("users/{email}")]
         public async Task<IActionResult> Details(string? email)
         {
@@ -51,26 +80,6 @@ namespace First_MVC_Project.Controllers
                 return NotFound();
             }
 
-            return View(user);
-        }
-        
-        public IActionResult New()
-        {
-            return View();
-            //return View("MyView");
-        }
-
-        [HttpPost]
-        public IActionResult New(User user)
-        {
-            if(user != null)
-            {
-                if (ModelState.IsValid)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                return View(user);  
-            }
             return View(user);
         }
 
@@ -160,6 +169,11 @@ namespace First_MVC_Project.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Play()
+        {
+            return View();
         }
 
         private bool UserExists(string email)

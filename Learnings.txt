@@ -1,4 +1,6 @@
-﻿1: Nullable for setting null and required is for set the value to validate success...
+﻿Learnt:
+
+1: Nullable for setting null and required is for set the value to validate success...
 [Required]
 public DateTime? OrderDate { get; set; }
 
@@ -19,3 +21,65 @@ The model neglects that attribute at the time of model validation
 4. ModelState
 It have entries of attributes validation which inputs are tken from the client in the view.
 
+5. View("action","data") vs RedirectToAction("action","controller")
+
+6. How the View is Rendered: 
+
+The _ViewStart.cshtml file is executed before every view that is rendered. If you define the layout inside _ViewStart.cshtml, 
+it will apply to all views within the application.
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+When a request is made to an action method that returns a view, the view engine renders the specified view within the layout. 
+- The view (Index.cshtml, About.cshtml, etc.) is selected by the controller action.
+- The content of the view is rendered and then placed inside the layout file at the location of @RenderBody().
+
+7.
+
+-- error prone checks [Errors]
+
+1. If we don't pass data to the Views, 
+Case 1: when We are rendering model data (using @Model) in the view then it throws
+NullReferenceException
+InvalidOperationException
+Case 2: when We are not rendering model data (using @Model) in the view then it render smoothly without any hesitation.
+
+Make sure if you wanna render model data in the view first check for NullReferenceException then use it.
+
+2.Disabled fields aren't submitted. The email not goes in object with model binding at action
+            <div class="form-group">
+                <label asp-for="UserEmail" class="control-label"></label>
+                <input asp-for="UserEmail" class="form-control" value=@ViewData["userEmail"] disabled />
+            </div>
+
+Sol: When an input field is disabled (<input disabled ... />), its value is not sent with the form submission. 
+Better to sent that field as hidden field without user input.
+
+3. Logout button click not calling post action?? 405 Error - Method Not Allowed
+Sol: write button as submit btn in a form with post method
+
+4. How can I access signed user data?? Make an endpoint so that signed user only access his tasks?? 
+Sol: No, the entire user object is not stored.
+Only the claims you explicitly added are stored in the authentication cookie.
+
+5.The action runs success but not returning to Index view
+ [HttpPost]
+        public async Task<IActionResult> Clear()
+        {
+            if(_context.Tasks.Count() > 0)
+            {
+                var tasks = _context.Tasks.ToList();
+                _context.Tasks.RemoveRange(tasks);
+                _context.SaveChanges();
+                await Response.WriteAsync("Cleared"); 
+            }
+            else
+            {
+                await Response.WriteAsync("No Tasks");
+            }  
+            return View(nameof(Index),_context.Tasks.ToList());
+        }
+Sol: Calling Response.WriteAsync() writes raw content directly to the response body, which makes it hard for ASP.NET MVC to 
+process the view rendering after that. Once you start writing to the response, the action method can't return a view, 
+as part of the response is already sent to the client.

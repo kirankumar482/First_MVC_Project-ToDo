@@ -86,15 +86,14 @@ namespace First_MVC_Project.Controllers
             {
                 var tasks = _context.Tasks.ToList();
                 _context.Tasks.RemoveRange(tasks);
-                _context.SaveChanges();
-                Response.WriteAsync("Cleared"); 
+                await _context.SaveChangesAsync(); 
+                TempData["Message"] = "Tasks cleared successfully!";
             }
             else
             {
-                Response.WriteAsync("No Tasks");
+                TempData["Message"] = "No tasks to clear.";
             }  
-
-            return RedirectToAction(nameof(Index),_context.Tasks);
+            return View(nameof(Index),_context.Tasks.ToList());
         }
 
         // GET: Goals/Edit/5

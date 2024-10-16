@@ -5,6 +5,13 @@
 
 <h1>Index</h1>
 
+<div>
+    <form asp-action="Dashboard" asp-route-id="">
+        Year: <input type="number" /><br />
+        <button type="submit">Get Dashboard</button>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +24,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +43,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-email="@item.Email">Edit</a>

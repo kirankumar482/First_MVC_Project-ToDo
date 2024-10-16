@@ -26,7 +26,7 @@ namespace First_MVC_Project.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Email,Password")] User user)
+        public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
             {
@@ -42,8 +42,6 @@ namespace First_MVC_Project.Controllers
 
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                  
 
                     return View("Views/Goals/Index.cshtml", new List<Goal>());
                 }
@@ -93,8 +91,6 @@ namespace First_MVC_Project.Controllers
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    
-
                     return View("Views/Goals/Index.cshtml", UserTasks);
                 }
                 else
@@ -113,8 +109,6 @@ namespace First_MVC_Project.Controllers
                 
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                
 
                 return View("Views/Home/Index.cshtml");
             }

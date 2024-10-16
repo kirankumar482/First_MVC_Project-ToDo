@@ -6,9 +6,17 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="d-flex flex-row mb-3 justify-content-between">
+    <div class="p-2"> 
+        <a asp-action="Create" asp-controller="Goals">Create New</a>
+    </div>
+    <div class="p-2">
+        <form asp-action="Clear" method="post">
+            <button type="submit">Clear</button>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -48,6 +56,6 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

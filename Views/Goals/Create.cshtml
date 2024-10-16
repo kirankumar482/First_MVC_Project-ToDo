@@ -11,7 +11,14 @@
     <div class="col-md-4">
         @* Here it tells when submit form, goes to Post action Create *@
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>     
+@* 
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.Name)
+                @Html.TextBoxFor(Model => Model.Name)
+                @Html.ValidationMessageFor(Model => Model.Name)
+            </div> *@
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -28,18 +35,20 @@
                 <span asp-validation-for="DueDate" class="text-danger"></span>
             </div>
 
-           @*  The email automatically goes in object with current user *@
+        @*     The email automatically goes in object with current user
             <div class="form-group">
                 <label asp-for="UserEmail" class="control-label"></label>
                 <input asp-for="UserEmail" class="form-control" value=@ViewData["userEmail"] disabled />
             </div>
-
+ *@
             <!-- Hidden field to actually submit the email -->
             <input type="hidden" asp-for="UserEmail" value=@ViewData["userEmail"] />
        
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+            <a asp-action="Index" >Index</a>
         </form>
     </div>
 </div>

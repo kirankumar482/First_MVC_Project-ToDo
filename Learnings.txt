@@ -1,5 +1,4 @@
 ﻿1: Nullable for setting null and required is for set the value to validate success...
-
 [Required]
 public DateTime? OrderDate { get; set; }
 
@@ -10,9 +9,13 @@ Then model validate will be performed efficiently without any defaults....
 https://stackoverflow.com/questions/43688968/what-does-it-mean-for-a-property-to-be-required-and-nullable#:~:text=so%2C%20Nullable%3A%20makes%20sure%2C,saw%20when%20form%20got%20loaded).
 
 2. Bind[attributes] User user vs User user
-
 The Model validation considering the data coming from client to server then only we will interact with DB.
-Bind[attributes] User user : Validates only specified attributes in that model
-User user : Validates all attributes in that model
+Bind[attributes] User user : Validates only specified attributes in that model.
+User user : Validates the required attributes which inputs are taken from the View.
 
-3. 
+3. [NeverBind] annotation in a model
+The model neglects that attribute at the time of model validation
+
+4. ModelState
+It have entries of attributes validation which inputs are tken from the client in the view.
+

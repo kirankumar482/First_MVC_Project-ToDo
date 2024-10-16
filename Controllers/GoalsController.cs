@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using First_MVC_Project.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
-using StackExchange.Redis;
 
 namespace First_MVC_Project.Controllers
 {
     [Authorize(Roles = "User")]
     public class GoalsController : Controller
     {
-        private readonly AppDbContext _context;
+        private AppDbContext _context;
 
         public GoalsController(AppDbContext context)
         {
@@ -68,13 +69,32 @@ namespace First_MVC_Project.Controllers
         // [Bind("Id,Name,Description,CreatedDate,DueDate,UserEmail")]
         public async Task<IActionResult> Create(Goal goal)
         {
+            Debug.WriteLine(goal.DueDate);
             if (ModelState.IsValid)
             {
-                _context.Add(goal);
+                _context.Tasks.Add(goal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(goal);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Clear()
+        {
+            if(_context.Tasks.Count() > 0)
+            {
+                var tasks = _context.Tasks.ToList();
+                _context.Tasks.RemoveRange(tasks);
+                _context.SaveChanges();
+                Response.WriteAsync("Cleared"); 
+            }
+            else
+            {
+                Response.WriteAsync("No Tasks");
+            }  
+
+            return RedirectToAction(nameof(Index),_context.Tasks);
         }
 
         // GET: Goals/Edit/5
@@ -96,9 +116,10 @@ namespace First_MVC_Project.Controllers
 
         // POST: Goals/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
+        //[Bind("Id,Name,Description,CreatedDate,DueDate,UserEmail")] 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreatedDate,DueDate,UserEmail")] Goal goal)
+        public async Task<IActionResult> Edit(int id, Goal goal)
         {
             if (id != goal.Id)
             {

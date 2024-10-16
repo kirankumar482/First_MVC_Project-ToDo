@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace First_MVC_Project.Models
@@ -11,14 +12,14 @@ namespace First_MVC_Project.Models
         [StringLength(50)]
         public string? Name { get; set; }
 
+        //Not validated 
         [StringLength(500)]
         [ValidateNever]
         public string? Description { get; set; }
 
-        //Removed default value DateTime.Now here
-        //It sets default value as 0/0/0001
+        //Not validated
         [Required]
-        public DateTime CreatedDate { get; set; } 
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         [Required]
         [FutureDate] //custom annotation
@@ -37,20 +38,25 @@ namespace First_MVC_Project.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value is DateTime dateTimeValue)
+            DateTime date;
+            if (DateTime.TryParse(value.ToString(), out date))
             {
-                if (dateTimeValue <= DateTime.Now)
+                if (date <= DateTime.Now)
                 {
                     return new ValidationResult("The date must be in the future.");
                 }
-                return new ValidationResult("The date must be in the format dd/mm/yyyy");
+                return ValidationResult.Success;
             }
-            return ValidationResult.Success;
+            else
+            {
+                return new ValidationResult("The date must be in the good format dd/mm/yyyy");
+            }           
         }
     }
 }
 
-
+//Removed default value DateTime.Now here
+//It sets default value as 0/0/0001
 
 
 //public DateTime DueDate

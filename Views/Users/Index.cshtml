@@ -3,56 +3,59 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Users</h1>
 
-<div>
-    <form asp-action="Dashboard" asp-route-id="">
-        Year: <input type="number" /><br />
-        <button type="submit">Get Dashboard</button>
-    </form>
-</div>
+@if(Model.Count() > 0){
+    @* Form to submit the year *@
+    @Html.Partial("_ReportForm")
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                    <a asp-action="Edit" asp-route-email="@item.Email">Edit</a>
-                    <a asp-action="Details" asp-route-email="@item.Email">Details</a>
-                    <a asp-action="Delete" asp-route-email="@item.Email">Delete</a>
-            </td>
-        </tr>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-email="@item.Email">Edit</a>
+                        <a asp-action="Details" asp-route-email="@item.Email">Details</a>
+                        <a asp-action="Delete" asp-route-email="@item.Email">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else{
+    <h3>No Users Registered Yet!!</h3>
+}
+

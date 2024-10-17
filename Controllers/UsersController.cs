@@ -38,7 +38,7 @@ namespace First_MVC_Project.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        //[Route("Users/Dashboard/{year:int?}")]
+        [HttpPost]
         public async Task<IActionResult> Dashboard(int? year)
         {
             int CountOfUsersCreated;
@@ -49,6 +49,7 @@ namespace First_MVC_Project.Controllers
                 var users = await _context.Users.ToListAsync();
                 CountOfTasksCreated = tasks.Count;
                 CountOfUsersCreated = users.Count;
+                ViewBag.Year = "All Years";
             }
             else
             {
@@ -56,6 +57,7 @@ namespace First_MVC_Project.Controllers
                 var tasks = await _context.Tasks.Where(task => task.CreatedDate.Year.Equals(year)).ToListAsync();
                 CountOfTasksCreated = tasks.Count;
                 CountOfUsersCreated = users.Count;
+                ViewBag.Year = year;
             }
 
             return View(new UserTaskViewModel

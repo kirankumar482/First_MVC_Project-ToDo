@@ -44,10 +44,6 @@ namespace First_MVC_Project.Controllers
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-                    Response.Headers["Pragma"] = "no-cache";
-                    Response.Headers["Expires"] = "0";
-
                     return RedirectToAction("Index", "Home");            
                 }
                 catch (DbUpdateException ex)
@@ -96,10 +92,6 @@ namespace First_MVC_Project.Controllers
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-                    Response.Headers["Pragma"] = "no-cache";
-                    Response.Headers["Expires"] = "0";
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -119,10 +111,6 @@ namespace First_MVC_Project.Controllers
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-                Response.Headers["Pragma"] = "no-cache";
-                Response.Headers["Expires"] = "0";
-
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -138,9 +126,7 @@ namespace First_MVC_Project.Controllers
         {
             var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-            Response.Headers["Pragma"] = "no-cache";
-            Response.Headers["Expires"] = "0";
+
 
             return RedirectToAction("Index", "Home");
         }

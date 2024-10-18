@@ -1,6 +1,31 @@
-﻿Learnt:
+﻿Project Workflow:
 
-1: Nullable for setting null and required is for set the value to validate success...
+Problem Statement
+
+Design ER diagram
+
+Create Models with Data Validation
+
+Migrate the DB and update...
+
+If DB ready,
+
+Creating controllers to process or read that models.
+
+Creating views for respective action methods to render html with model data.
+
+
+
+Learnt:
+
+1. Data Annotations
+
+1.1 Where Validation occurs??
+[Required], would work on the server. The client-side validation is a bonus added only when you include jQuery validation plugin.
+So don't need to worry if someone turns off JavaScript on the browser. You will still get the server-side validation by the MVC framework when the data posts back to the server.
+That would also mean client-side validation cannot trusted. You can see it would be easy for others to by-pass the client-side validation and submit data to the server (i.e., using 3rd party tool like Postman).
+
+1.2: Nullable for setting null and required is for set the value to validate success...
 [Required]
 public DateTime? OrderDate { get; set; }
 
@@ -23,7 +48,7 @@ It have entries of attributes validation which inputs are tken from the client i
 
 5. View("action","data") vs RedirectToAction("action","controller")
 
-6. How the View is Rendered: 
+6. How every View is Rendered with Layout View: 
 
 The _ViewStart.cshtml file is executed before every view that is rendered. If you define the layout inside _ViewStart.cshtml, 
 it will apply to all views within the application.
@@ -35,7 +60,12 @@ When a request is made to an action method that returns a view, the view engine 
 - The view (Index.cshtml, About.cshtml, etc.) is selected by the controller action.
 - The content of the view is rendered and then placed inside the layout file at the location of @RenderBody().
 
-7.
+7. Model states for Business logic then why we write business logic at controllers?? 
+- We can create an extra layer as service layer in between Controller and data acccess layer
+https://stackoverflow.com/questions/18563229/mvc-where-to-put-business-logic
+
+
+
 
 -- error prone checks [Errors]
 

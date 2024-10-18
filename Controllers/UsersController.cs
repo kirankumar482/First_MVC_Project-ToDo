@@ -38,7 +38,6 @@ namespace First_MVC_Project.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost]
         public async Task<IActionResult> Dashboard(int? year)
         {
             int CountOfUsersCreated;

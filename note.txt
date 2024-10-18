@@ -20,10 +20,12 @@
 
 - Role based (admin, user)
 
+- render after log in or log out in a good state (After logout go for login/home) -> Okay
+- Multiple users paralelly using the app - Okay in mutiple browsers....
+
 To do:
 
-- partial views (to reuse views)
-- viewmodel (complex type)
+- If I click back arrow after login or log out it should not go...(Window history)
 
 
 - know how storing cookies (key,value)

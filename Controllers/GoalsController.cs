@@ -28,10 +28,11 @@ namespace First_MVC_Project.Controllers
         public async Task<IActionResult> Index()
         {
             string? targetEmail = User.FindFirstValue(ClaimTypes.Email);
-            if(targetEmail == null)
-            {
-                return NotFound();
-            }
+            //To access this he is signed in...
+            //if(targetEmail == null)
+            //{
+            //    return NotFound();
+            //}
             var appDbContext = _context.Tasks.Where(t => t.UserEmail == targetEmail).OrderBy(t => t.DueDate);
             return View(await appDbContext.ToListAsync());
         }
